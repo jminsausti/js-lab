@@ -69,18 +69,93 @@ header h1 {
 }
 
 /* Contenido principal */
-main {
-    max-width: 1200px;
-    margin: 2rem auto;
-    padding: 0 1rem;
+#content {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
 }
 
-#welcome-message {
-    text-align: center;
-    padding: 2rem;
+/* Sección de teoría */
+.theory-content {
     background: white;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+    padding: 2rem;
+    line-height: 1.7;
+    color: #333;
+}
+
+.theory-content h2 {
+    color: var(--primary-color);
+    margin-top: 0;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--light-color);
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.theory-content h3 {
+    color: var(--primary-color);
+    margin: 1.8rem 0 1rem;
+    font-size: 1.4rem;
+}
+
+.theory-content h4 {
+    color: var(--secondary-color);
+    margin: 1.5rem 0 0.8rem;
+    font-size: 1.2rem;
+}
+
+.theory-content p {
+    margin-bottom: 1.2rem;
+    line-height: 1.7;
+}
+
+.theory-content ul, 
+.theory-content ol {
+    margin: 1rem 0 1.5rem 2rem;
+}
+
+.theory-content li {
+    margin-bottom: 0.6rem;
+    position: relative;
+    line-height: 1.6;
+}
+
+.theory-content li:before {
+    content: '•';
+    color: var(--secondary-color);
+    font-weight: bold;
+    display: inline-block;
+    width: 1.5em;
+    margin-left: -1.5em;
+}
+
+.theory-content code {
+    background-color: #f5f7fa;
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.9em;
+    color: #d6336c;
+    border: 1px solid #e1e4e8;
+}
+
+.theory-content pre {
+    background: #f8f9fa;
+    border-radius: 6px;
+    padding: 1rem !important;
+    margin: 1.2rem 0;
+    overflow-x: auto;
+    border: 1px solid #e9ecef;
+}
+
+.theory-content pre code {
+    background: transparent;
+    padding: 0;
+    color: #333;
+    border: none;
 }
 
 /* Navegación de secciones */
@@ -187,6 +262,217 @@ code {
 .solution-content pre {
     margin: 0.5rem 0 0 0;
     background-color: #e6f2ff;
+}
+
+/* Contenedor de ejemplos */
+.examples-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+}
+
+/* Tarjeta de ejemplo */
+.example-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 1px solid #e9ecef;
+}
+
+.example-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.example-header {
+    background-color: #f8f9fa;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid #e9ecef;
+    font-size: 1.1em;
+    font-weight: 600;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.example-header i {
+    color: var(--secondary-color);
+}
+
+.example-description {
+    padding: 1rem 1.25rem;
+    color: #495057;
+    border-bottom: 1px solid #f1f3f5;
+    background-color: #f8f9fa;
+    font-size: 0.95em;
+    line-height: 1.6;
+}
+
+.example-code {
+    padding: 1.25rem;
+    background: white;
+}
+
+/* Contenedor de ejercicios */
+.exercises-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+}
+
+/* Tarjeta de ejercicio */
+.exercise-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    padding: 1.5rem;
+    border: 1px solid #e9ecef;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.exercise-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.exercise-card h3 {
+    margin-top: 0;
+    color: var(--primary-color);
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #f1f3f5;
+    margin-bottom: 1rem;
+}
+
+.exercise-card p {
+    color: #495057;
+    margin-bottom: 1.25rem;
+    line-height: 1.6;
+}
+
+/* Estilos para los encabezados de sección */
+.section-header {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.section-header h2 {
+    margin: 0 0 0.5rem 0;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.section-header p {
+    margin: 0;
+    color: #6c757d;
+    font-size: 0.95em;
+}
+
+/* Números de ejemplo/ejercicio */
+.example-number,
+.exercise-number {
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 0.8em;
+    font-weight: 600;
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+    margin-right: 0.75rem;
+}
+
+/* Encabezados de tarjetas */
+.example-header,
+.exercise-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.example-header h3,
+.exercise-header h3 {
+    margin: 0;
+    font-size: 1.1em;
+    color: #343a40;
+}
+
+/* Acciones de ejercicios */
+.exercise-actions {
+    margin-top: 1.25rem;
+    padding-top: 1rem;
+    border-top: 1px dashed #e9ecef;
+}
+
+/* Títulos de código */
+.example-code h4,
+.solution-container h4 {
+    margin: 0 0 0.75rem 0;
+    font-size: 0.9em;
+    font-weight: 600;
+    color: #495057;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Estilos para los resultados de los ejemplos */
+.example-result {
+    margin-top: 1.5rem;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #e9ecef;
+    background-color: #f8f9fa;
+}
+
+.result-header {
+    background-color: #f1f8ff;
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9em;
+    font-weight: 500;
+    color: #0366d6;
+    transition: background-color 0.2s;
+}
+
+.result-header:hover {
+    background-color: #e1f0ff;
+}
+
+.result-header i {
+    transition: transform 0.2s;
+}
+
+.result-header.collapsed i {
+    transform: rotate(-90deg);
+}
+
+.result-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    background-color: #f8f9fa;
+}
+
+.result-content.expanded {
+    max-height: 500px; /* Ajusta según sea necesario */
+}
+
+.result-content pre {
+    margin: 0;
+    border-radius: 0;
+    border: none;
+    border-top: 1px solid #e9ecef;
+    background-color: #f8f9fa;
+    padding: 1rem !important;
+    font-size: 0.9em;
 }
 
 /* Footer */

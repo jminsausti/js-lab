@@ -45,18 +45,21 @@ const arrays = {
             items: [
                 {
                     title: 'Creación y modificación',
-                    code: '// Crear un array\nlet colores = ["rojo", "verde", "azul"];\n\n// Añadir al final\ncolores.push("amarillo");\n\n// Eliminar el último\nlet ultimo = colores.pop();\n\n// Añadir al inicio\ncolores.unshift("blanco");\n\n// Eliminar el primero\nlet primero = colores.shift();',
-                    description: 'Operaciones básicas con arrays'
+                    code: '// Crear un array\nlet colores = ["rojo", "verde", "azul"];\n\n// Añadir al final\ncolores.push("amarillo");  // colores = ["rojo", "verde", "azul", "amarillo"]\n\n// Eliminar el último\nlet ultimo = colores.pop();  // ultimo = "amarillo", colores = ["rojo", "verde", "azul"]\n\n// Añadir al inicio\ncolores.unshift("blanco");  // colores = ["blanco", "rojo", "verde", "azul"]\n\n// Eliminar el primero\nlet primero = colores.shift();  // primero = "blanco", colores = ["rojo", "verde", "azul"]',
+                    description: 'Operaciones básicas con arrays',
+                    result: '// Estado final de las variables:\n// colores = ["rojo", "verde", "azul"]\n// ultimo = "amarillo"\n// primero = "blanco"'
                 },
                 {
                     title: 'Recorrer un array',
-                    code: 'let numeros = [1, 2, 3, 4, 5];\n\n// Con for clásico\nfor (let i = 0; i < numeros.length; i++) {\n    console.log(numeros[i]);\n}\n\n// Con for...of\nfor (let numero of numeros) {\n    console.log(numero);\n}',
-                    description: 'Diferentes formas de recorrer un array'
+                    code: 'let numeros = [1, 2, 3, 4, 5];\n\n// Con for clásico\nfor (let i = 0; i < numeros.length; i++) {\n    console.log(numeros[i]);  // Imprime: 1, 2, 3, 4, 5\n}\n\n// Con for...of\nfor (let numero of numeros) {\n    console.log(numero);  // Imprime: 1, 2, 3, 4, 5\n}\n\n// Con forEach\nnumeros.forEach(numero => {\n    console.log(numero * 2);  // Imprime: 2, 4, 6, 8, 10\n});',
+                    description: 'Diferentes formas de recorrer un array',
+                    result: '// Salida en consola:\n// 1, 2, 3, 4, 5 (for clásico)\n// 1, 2, 3, 4, 5 (for...of)\n// 2, 4, 6, 8, 10 (forEach)'
                 },
                 {
                     title: 'Métodos de transformación',
                     code: 'const numeros = [1, 2, 3, 4, 5];\n\n// map: duplicar cada número\nconst duplicados = numeros.map(num => num * 2);\n\n// filter: obtener números pares\nconst pares = numeros.filter(num => num % 2 === 0);\n\n// reduce: sumar todos los números\nconst suma = numeros.reduce((total, num) => total + num, 0);\n\n// find: encontrar el primer número mayor que 3\nconst mayorQueTres = numeros.find(num => num > 3);\n\n// some: verificar si hay algún número par\nconst hayPares = numeros.some(num => num % 2 === 0);\n\n// every: verificar si todos son menores que 10\nconst todosMenores = numeros.every(num => num < 10);',
-                    description: 'Ejemplos de métodos de transformación de arrays'
+                    description: 'Ejemplos de métodos de transformación de arrays',
+                    result: '// Resultados de las operaciones:\n// duplicados = [2, 4, 6, 8, 10]\n// pares = [2, 4]\n// suma = 15\n// mayorQueTres = 4\n// hayPares = true\n// todosMenores = true'
                 }
             ]
         },

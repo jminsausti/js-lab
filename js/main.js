@@ -51,56 +51,112 @@ function loadTopic(topicId) {
 
 // Cargar las secciones de un tema
 function loadSections(sections) {
-    // Limpiar navegación de secciones
-    if (sectionNav) sectionNav.innerHTML = '';
-    if (sectionsContainer) sectionsContainer.innerHTML = '';
+    if (!sectionsContainer || !sectionNav) return;
 
-    // Crear botones de navegación y secciones
-    Object.entries(sections).forEach(([sectionId, section], index) => {
-        if (!section) return;
-        
-        // Botón de navegación
-        if (sectionNav) {
-            const button = document.createElement('button');
-            button.className = `section-btn ${index === 0 ? ACTIVE_CLASS : ''}`;
-            button.innerHTML = section.icon ? 
-                `<i class="fas fa-${section.icon}"></i> ${section.title || ''}` : 
-                section.title || '';
-            button.dataset.section = sectionId;
-            sectionNav.appendChild(button);
-        }
+    // Limpiar contenido existente
+    sectionNav.innerHTML = '';
+    sectionsContainer.innerHTML = '';
 
-        // Contenido de la sección
-        if (sectionsContainer) {
-            const sectionElement = document.createElement('div');
-            sectionElement.id = `section-${sectionId}`;
-            sectionElement.className = `section ${index === 0 ? ACTIVE_CLASS : ''}`;
-            
-            if (section.content) {
-                // Sección de teoría
-                sectionElement.innerHTML = section.content;
-            } else if (section.items) {
-                // Sección de ejemplos o ejercicios
-                sectionElement.innerHTML = section.items.map((item, i) => {
-                    if (!item) return '';
-                    return `
-                        <div class="${sectionId.slice(0, -1)}">
-                            ${item.title ? `<h3>${item.title}</h3>` : ''}
-                            ${item.description ? `<p>${item.description}</p>` : ''}
-                            ${item.code ? `<pre><code>${item.code}</code></pre>` : ''}
-                            ${sectionId === 'ejercicios' && item.solution ? `
-                                <button class="btn show-solution" data-solution="${(item.solution || '').replace(/'/g, "\\'")}">
-                                    Mostrar solución
-                                </button>
-                                <div class="solution-container"></div>
+    // Convertir a array si es un objeto
+    const sectionsArray = Array.isArray(sections) ? sections : Object.values(sections);
+    
+    // Crear botones de navegación
+    sectionsArray.forEach((section, index) => {
+        const sectionId = section.id || `section-${index}`;
+        // Crear botón de navegación
+        const button = document.createElement('button');
+        button.className = `section-btn ${index === 0 ? ACTIVE_CLASS : ''}`;
+        button.innerHTML = `<i class="fas fa-${section.icon}"></i> ${section.title}`;
+        button.dataset.section = sectionId;
+        sectionNav.appendChild(button);
+
+        // Crear sección de contenido
+        const sectionElement = document.createElement('div');
+        sectionElement.id = `section-${sectionId}`;
+        sectionElement.className = `section ${index === 0 ? '' : HIDDEN_CLASS}`;
+
+        // Agregar contenido a la sección según el tipo
+        if (sectionId === 'teoria' && section.content) {
+            // Sección de teoría
+            sectionElement.innerHTML = `
+                <div class="theory-content">
+                    <h2><i class="fas fa-${section.icon}"></i> ${section.title}</h2>
+                    <div class="theory-text">
+                        ${section.content}
+                    </div>
+                </div>
+            `;
+        } else if (sectionId === 'ejemplos' && section.items) {
+            // Sección de ejemplos
+            sectionElement.innerHTML = `
+                <div class="section-header">
+                    <h2><i class="fas fa-${section.icon}"></i> ${section.title}</h2>
+                    <p>${section.items.length} ${section.items.length === 1 ? 'ejemplo' : 'ejemplos'} disponibles</p>
+                </div>
+                <div class="examples-container">
+                    ${section.items.map((example, index) => `
+                        <div class="example-card">
+                            <div class="example-header">
+                                <span class="example-number">Ejemplo ${index + 1}</span>
+                                <h3>${example.title}</h3>
+                            </div>
+                            ${example.description ? `
+                                <div class="example-description">
+                                    <p>${example.description}</p>
+                                </div>
+                            ` : ''}
+                            <div class="example-code">
+                                <h4>Código:</h4>
+                                <pre><code class="language-javascript">${example.code}</code></pre>
+                            </div>
+                            ${example.result ? `
+                                <div class="example-result">
+                                    <div class="result-header">
+                                        <i class="fas fa-chevron-down"></i> Ver resultado
+                                    </div>
+                                    <div class="result-content">
+                                        <h4>Resultado:</h4>
+                                        <pre><code class="language-javascript">${example.result}</code></pre>
+                                    </div>
+                                </div>
                             ` : ''}
                         </div>
-                    `;
-                }).join('');
-            }
-
-            sectionsContainer.appendChild(sectionElement);
+                    `).join('')}
+                </div>
+            `;
+        } else if (section.items) {
+            // Otras secciones (ejercicios)
+            sectionElement.innerHTML = `
+                <div class="section-header">
+                    <h2><i class="fas fa-${section.icon}"></i> ${section.title}</h2>
+                    <p>${section.items.length} ${section.items.length === 1 ? 'ejercicio' : 'ejercicios'} para practicar</p>
+                </div>
+                <div class="exercises-container">
+                    ${section.items.map((exercise, index) => `
+                        <div class="exercise-card">
+                            <div class="exercise-header">
+                                <span class="exercise-number">Ejercicio ${index + 1}</span>
+                                <h3>${exercise.title}</h3>
+                            </div>
+                            <p>${exercise.description}</p>
+                            ${exercise.solution ? `
+                                <div class="exercise-actions">
+                                    <button class="btn" data-solution="${exercise.id}">
+                                        <i class="fas fa-lightbulb"></i> Mostrar solución
+                                    </button>
+                                </div>
+                                <div class="solution-container" id="solution-${exercise.id}" style="display: none;">
+                                    <h4>Solución:</h4>
+                                    <pre><code class="language-javascript">${exercise.solution}</code></pre>
+                                </div>
+                            ` : ''}
+                        </div>
+                    `).join('')}
+                </div>
+            `;
         }
+
+        sectionsContainer.appendChild(sectionElement);
     });
 
     // Configurar eventos de navegación
@@ -108,6 +164,16 @@ function loadSections(sections) {
     
     // Configurar botones de solución
     setupSolutionButtons();
+    
+    // Configurar botones de resultados de ejemplos
+    setupExampleResults();
+    
+    // Resaltar la sintaxis del código
+    if (window.hljs) {
+        document.querySelectorAll('pre code').forEach((block) => {
+            hljs.highlightBlock(block);
+        });
+    }
 }
 
 // Configurar navegación entre secciones
@@ -135,27 +201,61 @@ function setupSectionNavigation() {
 // Configurar botones de solución
 function setupSolutionButtons() {
     document.addEventListener('click', (e) => {
-        const target = e.target.closest('.show-solution');
+        const target = e.target.closest('.btn[data-solution]');
         if (!target) return;
         
         e.preventDefault();
-        const solution = target.getAttribute('data-solution');
-        const solutionContainer = target.nextElementSibling;
+        const solutionId = target.getAttribute('data-solution');
+        const solutionContainer = document.getElementById(`solution-${solutionId}`);
         
         if (!solutionContainer) return;
         
         if (solutionContainer.style.display === 'block') {
             solutionContainer.style.display = 'none';
-            target.textContent = 'Mostrar solución';
+            target.innerHTML = '<i class="fas fa-eye"></i> Mostrar solución';
         } else {
-            solutionContainer.innerHTML = `
-                <div class="solution-content">
-                    <h4>Solución:</h4>
-                    <pre><code>${(solution || '').replace(/\\n/g, '\n')}</code></pre>
-                </div>
-            `;
             solutionContainer.style.display = 'block';
-            target.textContent = 'Ocultar solución';
+            target.innerHTML = '<i class="fas fa-eye-slash"></i> Ocultar solución';
+            
+            // Resaltar la sintaxis del código en la solución
+            if (window.hljs) {
+                const codeBlock = solutionContainer.querySelector('code');
+                if (codeBlock) hljs.highlightBlock(codeBlock);
+            }
+        }
+    });
+}
+
+// Configurar la funcionalidad de mostrar/ocultar resultados de ejemplos
+function setupExampleResults() {
+    document.addEventListener('click', (e) => {
+        const header = e.target.closest('.result-header');
+        if (!header) return;
+        
+        e.preventDefault();
+        const content = header.nextElementSibling;
+        
+        if (!content) return;
+        
+        // Alternar clases para la animación
+        header.classList.toggle('collapsed');
+        content.classList.toggle('expanded');
+        
+        // Cambiar el ícono
+        const icon = header.querySelector('i');
+        if (icon) {
+            icon.classList.toggle('fa-chevron-down');
+            icon.classList.toggle('fa-chevron-up');
+        }
+        
+        // Resaltar la sintaxis del código en el resultado
+        if (window.hljs && content.classList.contains('expanded')) {
+            const codeBlocks = content.querySelectorAll('code');
+            codeBlocks.forEach(block => {
+                if (!block.classList.contains('hljs')) {
+                    hljs.highlightBlock(block);
+                }
+            });
         }
     });
 }
