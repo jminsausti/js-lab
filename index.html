@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Lab - Aprende JavaScript</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <h1><i class="fas fa-code"></i> JS Lab</h1>
+        <p>Aprende y practica JavaScript</p>
+    </header>
+
+    <nav id="main-nav">
+        <ul id="topics-list">
+            <!-- Se llenará dinámicamente -->
+        </ul>
+    </nav>
+
+    <main>
+        <div id="content">
+            <div id="welcome-message">
+                <h2>Bienvenido a JS Lab</h2>
+                <p>Selecciona un tema para comenzar a aprender.</p>
+            </div>
+            
+            <div id="topic-content" class="hidden">
+                <div id="topic-header">
+                    <h2 id="topic-title"></h2>
+                    <p id="topic-description"></p>
+                </div>
+                
+                <nav class="section-nav">
+                    <!-- Se llenará dinámicamente -->
+                </nav>
+                
+                <div class="sections-container">
+                    <!-- Secciones de contenido se cargarán aquí -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>Desarrollo de Aplicaciones Web - JavaScript</p>
+    </footer>
+
+    <script src="js/main.js" type="module"></script>
+</body>
+</html>
